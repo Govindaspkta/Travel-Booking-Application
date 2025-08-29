@@ -1,0 +1,87 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+}
+
+/* Body */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Headings */
+h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Card */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 6px rgba(0,123,255,0.3);
+}
+
+/* Button */
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #003c7c;
+    transform: translateY(-2px);
+}
+/* Error messages */
+input.is-invalid {
+    border-color: #dc3545;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+.invalid-feedback {
+    color: #dc3545;   /* Bootstrap red */
+    font-size: 0.85rem;
+}
+
+
+/* Make table text smaller on very small screens */
+@media (max-width: 576px) {
+    .table th, .table td {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Card adjustments */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}

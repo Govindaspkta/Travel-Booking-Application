@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6 col-sm-10">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Book {{ option }}</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label>Full Name:</label>
+                    <p class="form-control-static">{{ request.user.get_full_name|default:request.user.username }}</p>
+                </div>
+                <div class="mb-3">
+                    <label>Email:</label>
+                    <p class="form-control-static">{{ request.user.email }}</p>
+                </div>
+               
+                <div class="mb-3">
+                    <label for="{{ form.number_of_seats.id_for_label }}">Number of Seats:</label>
+
+                    {{ form.number_of_seats}}
+                    {% if form.number_of_seats.errors %}
+                    <div class="text-danger">
+                        No must be grater than 0{{ form.number_of_seats.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 mt-3" 
+                onclick="return confirm('Are you sure you want to confirm this booking?');">
+                Confirm Booking
+                </button>                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

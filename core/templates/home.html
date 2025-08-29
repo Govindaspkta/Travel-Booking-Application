@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-3 p-md-4">
+        <h2 class="mb-4 text-center">Available Travel Options</h2>
+
+        <!-- Filter Form -->
+        <form method="get" class="row g-2 g-md-3 mb-4">
+            <div class="col-12 col-md-3">
+                {{ form.type|attr:"class:form-select" }}
+            </div>
+            <div class="col-12 col-md-3">
+                {{ form.source|attr:"class:form-control"|attr:"placeholder:Source" }}
+            </div>
+            <div class="col-12 col-md-3">
+                {{ form.destination|attr:"class:form-control"|attr:"placeholder:Destination"}}
+            </div>
+            <div class="col-12 col-md-3">
+                {{ form.date|attr:"class:form-control" }}
+            </div>
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary w-100 w-md-auto">Filter</button>
+            </div>
+        </form>
+
+        <!-- Travel Options Table -->
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Type</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Date / Time</th>
+                        <th>Price</th>
+                        <th>Seats</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for option in options %}
+                    <tr>
+                        <td>{{ option.type }}</td>
+                        <td>{{ option.source }}</td>
+                        <td>{{ option.destination }}</td>
+                        <td>{{ option.date_time|date:"M d, Y H:i" }}</td>
+                        <td>${{ option.price }}</td>
+                        <td>{{ option.available_seats }}</td>
+                        <td>
+                            {% if user.is_authenticated %}
+                                {% if option.available_seats > 0 %}
+                                    <a href="{% url 'book' option.id %}" class="btn btn-sm btn-success">Book</a>
+                                {% else %}
+                                    <button class="btn btn-sm btn-secondary" disabled>Sold Out</button>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-sm btn-outline-primary">Login to Book</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">No travel options available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

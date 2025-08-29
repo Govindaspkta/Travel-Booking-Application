@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-sm-10">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Create Account</h2>
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="row mb-3 align-items-center">
+                        <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label fw-semibold">
+                            {{ field.label }}
+                        </label>
+                        <div class="col-sm-8">
+                            {{ field|add_class:"form-control" }}
+                            
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary w-100 py-2">Register</button>
+            </form>
+            <p class="text-center text-muted mt-3 mb-0">
+                Already have an account?
+                <a href="{% url 'login' %}" class="text-decoration-none fw-semibold text-primary">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

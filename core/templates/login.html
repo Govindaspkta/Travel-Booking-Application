@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 col-sm-10">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Login</h2>
+            
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="invalid-feedback d-block mb-2">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" id="id_username" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Password</label>
+                    <input type="password" name="password" id="id_password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+            </form>
+
+            <p class="text-center text-muted mt-3 mb-0">
+                Don’t have an account? 
+                <a href="{% url 'register' %}" class="text-decoration-none fw-semibold text-primary">Register here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
